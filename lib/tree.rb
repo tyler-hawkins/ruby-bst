@@ -13,19 +13,32 @@ class Tree
 		@root = build_tree(arr)
 	end
 
+	# Turn array into a balanced binary tree full of node objects that are 
+	# appropriately placed
 	def build_tree(arr)
-		# Turn array into a balanced binary tree full of node objects that are 
-		# appropriately placed
-		puts arr.to_s
+		# If the given array can't be split any further, create and return a 
+		# node with that value
 		if arr.length <= 1 then
 			return Node.new(arr[0])
 		end
+
+		# Get the midpoint of the array => [1, 2, *3*, 4, 5]
 		mid_index = (arr.length / 2).round
+		# Create the root node with this value => *3*
 		root = Node.new(arr[mid_index])
+		# Build this node's left subtree by grabbing everything before the root 
+		# node => [*1, 2*, 3, 4, 5]
 		root.left = build_tree(arr[0..mid_index - 1])
+		# Build this node's right subtree by grabbing everything after the root 
+		# node => [1, 2, 3, *4, 5*]
+		# It is possible (e.g. [1, >2<]) for a root node to not have a right 
+		# subtree, since the array is big enough only for a left tree.
+		# In this case, we return nil, and this node only has a left subtree.
 		root.right = arr.length - mid_index > 1 ? build_tree(arr[mid_index + 1..arr.length - 1]) : nil
 
-		# Return the level-0 root node
+		# Return the root node
+		# When the recursion catches up, this will eventually be the 
+		# level-0 root node of the entire tree.
 		return root
 	end
 

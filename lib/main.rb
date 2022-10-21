@@ -7,7 +7,7 @@ tree = Tree.new(data)
 puts "Tree:"
 tree.pretty_print
 
-puts "Root node: #{tree.root}"
+puts "Root node: #{tree.root.data}"
  
 
 puts "Confirming that the tree is balanced..."
