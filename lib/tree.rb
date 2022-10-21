@@ -4,17 +4,18 @@
 class Tree
 	attr_accessor :root
 
-	def initialize(arr = [])
+	def initialize(arr = [])		
+		# Sort array
+		arr.sort!
+		# Remove duplicates from array
+		arr.uniq!
 		@root = build_tree(arr)
 	end
 
 	def build_tree(arr)
-		# Sort array
-
-		# Remove duplicates from array
-
 		# Turn array into a balanced binary tree full of node objects that are 
 		# appropriately placed
+		
 
 		# Return the level-0 root node
 	end
@@ -40,7 +41,7 @@ class Tree
 	def level_order(&blk)
 		# Traverse the tree in breadth-first level order and yield each node to
 		# the block
-		# Root -> Left/Right -> Left/Right -> etc
+		# Root -> Left -> Root -> Right -> etc
 
 		# Implement using iteration and/or recursion
 
@@ -89,9 +90,16 @@ class Tree
 
 		# A balanced tree is one where the difference between heights of left 
 		# subtree and right subtree of every node is not more than 1
+		return true
 	end
 
 	def rebalance()
 		# Balance an unbalanced tree
+	end
+
+	def pretty_print(node = @root, prefix = '', is_left = true)
+		pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
+		puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
+		pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
 	end
 end
