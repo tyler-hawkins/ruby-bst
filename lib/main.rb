@@ -1,14 +1,13 @@
 require_relative "tree"
 require_relative "node"
 
-data = Array.new(15) { rand(1..100) }
+data = Array.new(15) { rand(1..99) }
 puts "Creating binary search tree from an array of random numbers..."
 tree = Tree.new(data)
 puts "Tree:"
 tree.pretty_print
 
-puts "Root node: #{tree.root.data}"
- 
+puts "Root node: #{tree.root.data}" 
 
 puts "Confirming that the tree is balanced..."
 puts "Tree is balanced: " + tree.balanced?.to_s
