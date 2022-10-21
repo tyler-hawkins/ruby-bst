@@ -9,15 +9,24 @@ class Tree
 		arr.sort!
 		# Remove duplicates from array
 		arr.uniq!
+		puts "Sorted array with duplicates removed: #{arr}"
 		@root = build_tree(arr)
 	end
 
 	def build_tree(arr)
 		# Turn array into a balanced binary tree full of node objects that are 
 		# appropriately placed
-		
+		puts arr.to_s
+		if arr.length <= 1 then
+			return Node.new(arr[0])
+		end
+		mid_index = (arr.length / 2).round
+		root = Node.new(arr[mid_index])
+		root.left = build_tree(arr[0..mid_index - 1])
+		root.right = arr.length - mid_index > 1 ? build_tree(arr[mid_index + 1..arr.length - 1]) : nil
 
 		# Return the level-0 root node
+		return root
 	end
 
 	def insert(value)
