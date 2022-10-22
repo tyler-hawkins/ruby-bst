@@ -54,13 +54,35 @@ class Tree
 		end
 	end
 
-	def delete(value)
+	def delete(value, node = @root)
+		if value == node.data then
+			return
+		end
+
 		# Find the node with this value
+		if value < node.data
+			node.left = delete(value, node.left)
+		elsif value > node.data
+			node.right = delete(value, node.right)
+		else
+			# If the node has children, (left or right) delete those nodes and their
+			# children as well
+			if node.left.nil? then
+				temp = node.right
+				node = nil
+				return temp
+			elsif node.right.nil? then
+				temp = node.right
+				node = nil
+				return temp
+			end
 
-		# Remove the node
-
-		# If the node has children, (left or right) delete those nodes and their
-		# children as well
+			# Remove the node	
+			temp = min_node(node.right)
+			node.data = temp.data
+			node.right = delete(temp.data, node.right)
+		end
+		return node
 	end
 
 	def find(value)
@@ -124,6 +146,11 @@ class Tree
 
 	def rebalance()
 		# Balance an unbalanced tree
+	end
+
+	def min_node(node)
+		node = node.left until node.left.nil?
+		return node
 	end
 
 	def pretty_print(node = @root, prefix = '', is_left = true)
