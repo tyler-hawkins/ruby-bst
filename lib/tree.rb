@@ -42,9 +42,16 @@ class Tree
 		return root
 	end
 
-	def insert(value)
-		# Insert the value as a node to the end of the list (or in the 
-		# sorted place?)
+	def insert(value, node = @root)
+		# Insert the value in sorted place, do not allow for duplicate values
+		if value == node.data then
+			return
+		end
+	    if value < node.data
+			node.left.nil? ? node.left = Node.new(value) : insert(value, node.left)
+		else
+			node.right.nil? ? node.right = Node.new(value) : insert(value, node.right)
+		end
 	end
 
 	def delete(value)
