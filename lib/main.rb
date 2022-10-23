@@ -15,13 +15,20 @@ puts "Confirming that the tree is balanced..."
 puts "Tree is balanced: " + tree.balanced?.to_s
 
 puts "Printing out all elements in level order..."
-tree.level_order { |node| print node.data }
+tree.level_order { |node| print "#{node.data } " }
+puts ""
 
 puts "Printing out all elements in pre order..."
+tree.preorder { |node| print "#{node.data } " }
+puts ""
 
 puts "Printing out all elements in post order..."
+tree.postorder { |node| print "#{node.data } " }
+puts ""
 
 puts "Printing out all elements in order..."
+tree.inorder { |node| print "#{node.data } " }
+puts ""
 
 puts "Unbalancing the tree by adding several elements > 100..."
 tree.insert(4)

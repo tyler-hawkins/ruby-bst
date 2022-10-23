@@ -93,11 +93,12 @@ class Tree
 		return find(value, node.left) if value < node.data 
 	end
 
-	def level_order(&blk, node = @root)
+	def level_order(node = @root)
 		return if node.nil?
 		# Traverse the tree in breadth-first level order and yield each node to
 		# the block
-		# Root -> Left -> Root -> Right -> etc
+		# Root -> Left -> Root -> Right -> etc		
+		# Implement using iteration and/or recursion
 		output = []
 		queue = []
 		queue.push(node)
@@ -107,33 +108,54 @@ class Tree
 			queue.push(current.left) if current.left
 			queue.push(current.right) if current.right
 		end
-
-		# Implement using iteration and/or recursion
-
 		# Return an array of values if no block is given
+		output
 	end
 
 	# This collection of 3 methods accepts a block and traverses the tree in 
 	# their respective depth-first order and yields each node to the provided
 	# block
-	# The methods should return an array of values if no block is given
-	def inorder(&blk)
+	# The methods should return an array of values if no block is given, 
+	# e.g. do nothing to the node, just add its data to the output array
+	def inorder(node = @root, output = [], &blk)
 		# Traverse the tree from the leftmost node and work your way to the 
 		# right, moving to a node's right child before going up
 		# Left -> Root -> Right
+		return if node.nil? 
+
+		inorder(node.left, output, &blk)
+		output.push(block_given? ? blk.call(node) : node.data)
+		inorder(node.right, output, &blk)
+	
+		output	
+
 	end
 
-	def preorder(&blk)
+	def preorder(node = @root, output = [], &blk)
 		# Traverse the tree from the root node, and work your way through the 
 		# left subtree, then the right subtree
 		# Root -> Left -> Right
+		return if node.nil? 
+
+		output.push(block_given? ? blk.call(node) : node.data)
+		preorder(node.left, output, &blk)
+		preorder(node.right, output, &blk)
+	
+		output	
 	end
 
-	def postorder(&blk)
+	def postorder(node = @root, output = [], &blk)
 		# Traverse the tree from the leftmost node, moving right to cover the
 		# entire left subtree, then repeat for the right subtree, finally
 		# visiting the root node
 		# Left -> Right -> Root
+		return if node.nil? 
+
+		postorder(node.left, output, &blk)
+		postorder(node.right, output, &blk)
+		output.push(block_given? ? blk.call(node) : node.data)
+	
+		output	
 	end
 
 	def height(node)		
@@ -141,6 +163,10 @@ class Tree
 		# given node to a leaf node
 
 		# Return the height of the given node		
+		return count if node.nil?
+
+		count += 1
+		[height(node.left, count), height(node.right, count)].max
 	end
 
 	def depth(node)
