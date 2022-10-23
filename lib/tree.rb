@@ -93,10 +93,20 @@ class Tree
 		return find(value, node.left) if value < node.data 
 	end
 
-	def level_order(&blk)
+	def level_order(&blk, node = @root)
+		return if node.nil?
 		# Traverse the tree in breadth-first level order and yield each node to
 		# the block
 		# Root -> Left -> Root -> Right -> etc
+		output = []
+		queue = []
+		queue.push(node)
+		until queue.empty?
+			current = queue.shift
+			output.push(block_given? ? yield(current) : current.data)
+			queue.push(current.left) if current.left
+			queue.push(current.right) if current.right
+		end
 
 		# Implement using iteration and/or recursion
 

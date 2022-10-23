@@ -15,7 +15,7 @@ puts "Confirming that the tree is balanced..."
 puts "Tree is balanced: " + tree.balanced?.to_s
 
 puts "Printing out all elements in level order..."
-tree.level_order { |node| print node.value }
+tree.level_order { |node| print node.data }
 
 puts "Printing out all elements in pre order..."
 
