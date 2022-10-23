@@ -34,6 +34,8 @@ puts "Unbalancing the tree by adding several elements > 100..."
 tree.insert(4)
 tree.pretty_print
 
+puts "Height of the tree: #{tree.height()}"
+
 puts "Removing value \"4\" from the tree..."
 tree.delete(4)
 tree.pretty_print

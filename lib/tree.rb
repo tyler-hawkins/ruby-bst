@@ -158,15 +158,16 @@ class Tree
 		output	
 	end
 
-	def height(node)		
+	def height(node = @root, num = -1)		
 		# Height is defined as the number of edges in the longest path from a 
 		# given node to a leaf node
 
 		# Return the height of the given node		
-		return count if node.nil?
+		return num if node.nil?
 
-		count += 1
-		[height(node.left, count), height(node.right, count)].max
+		num += 1
+		# .max since node could have only one child leaf, making that side +1 longer
+		[height(node.left, num), height(node.right, num)].max
 	end
 
 	def depth(node)
