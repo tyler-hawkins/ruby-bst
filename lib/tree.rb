@@ -167,6 +167,7 @@ class Tree
 
 		num += 1
 		# .max since node could have only one child leaf, making that side +1 longer
+		# than the other side
 		[height(node.left, num), height(node.right, num)].max
 	end
 
@@ -182,11 +183,18 @@ class Tree
 
 		# A balanced tree is one where the difference between heights of left 
 		# subtree and right subtree of every node is not more than 1
-		return true
+		# Start at the root of the tree
+		# Get the height of the left tree and right tree, and compare them
+		left = height(@root.left, 0)
+		right = height(@root.right, 0)
+		return (left - right).abs() <= 1
 	end
 
 	def rebalance()
 		# Balance an unbalanced tree
+		# Get all the nodes in level order and build the tree with that array
+		nodes = inorder()
+		@root = build_tree(nodes)
 	end
 
 	def min_node(node)

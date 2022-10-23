@@ -31,7 +31,9 @@ tree.inorder { |node| print "#{node.data } " }
 puts ""
 
 puts "Unbalancing the tree by adding several elements > 100..."
-tree.insert(4)
+10.times do
+	tree.insert(rand(100..125))
+end
 tree.pretty_print
 
 puts "Height of the tree: #{tree.height()}"
@@ -41,13 +43,25 @@ tree.delete(4)
 tree.pretty_print
 
 puts "Confirming that the tree is unbalanced..."
+puts "Tree is balanced: " + tree.balanced?.to_s
 
 puts "Rebalancing the tree..."
+tree.rebalance
+
+puts "Rebalanced tree:"
+tree.pretty_print
 
 puts "Printing out all elements in level order..."
+tree.level_order { |node| print "#{node.data } " }
+puts ""
 
 puts "Printing out all elements in pre order..."
+tree.preorder { |node| print "#{node.data } " }
+puts ""
 
 puts "Printing out all elements in post order..."
+tree.postorder { |node| print "#{node.data } " }
+puts ""
 
 puts "Printing out all elements in order..."
+tree.inorder { |node| print "#{node.data } " }
