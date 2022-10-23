@@ -85,8 +85,12 @@ class Tree
 		return node
 	end
 
-	def find(value)
+	def find(value, node = @root)
 		# Return the node with this value
+		return if node.nil?
+		return node if node.data == value
+		return find(value, node.right) if value > node.data
+		return find(value, node.left) if value < node.data 
 	end
 
 	def level_order(&blk)
